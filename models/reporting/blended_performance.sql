@@ -12,6 +12,7 @@ WITH paid_data as
         (SELECT 'Meta' as channel, date, date_granularity, 
             spend, link_clicks as clicks, impressions, purchases, revenue
         FROM {{ source('reporting','facebook_campaign_performance') }}
+        WHERE campaign_name !~* 'traffic'
         UNION ALL
         SELECT 'Google Ads' as channel, date, date_granularity, 
             spend, clicks, impressions, purchases, revenue
@@ -20,6 +21,7 @@ WITH paid_data as
         SELECT 'Google Ads' as channel, date, date_granularity, 
             spend, clicks, impressions, purchases, revenue
         FROM {{ source('reporting','tiktok_ad_performance') }}
+        WHERE campaign_name !~* 'traffic'
         )
     GROUP BY 1,2,3)
   
