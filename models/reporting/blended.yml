@@ -1,1 +1,15 @@
 version: 2
+
+sources:
+  
+  - name: reporting
+    schema: reporting
+    tables:
+      - name: facebook_campaign_performance
+        identifier: rosiejane_facebook_campaign_performance
+
+      - name: googleads_campaign_performance
+        identifier: rosiejane_googleads_campaign_performance
+
+      - name: tiktok_ad_performance
+        identifier: rosiejane_tiktok_ad_performance
