@@ -9,10 +9,15 @@ WITH paid_data as
         COALESCE(SUM(spend),0) as spend, COALESCE(SUM(clicks),0) as clicks, COALESCE(SUM(impressions),0) as impressions, 
         COALESCE(SUM(purchases),0) as purchases, COALESCE(SUM(revenue),0) as revenue
     FROM
-        (SELECT 'Meta' as channel, date, date_granularity, 
+        (SELECT 'Meta Sephora' as channel, date, date_granularity, 
             spend, link_clicks as clicks, impressions, purchases, revenue
         FROM {{ source('reporting','facebook_campaign_performance') }}
-        WHERE campaign_name !~* 'traffic'
+        WHERE campaign_name ~* 'sephora'
+        UNION ALL
+        SELECT 'Meta DTC' as channel, date, date_granularity, 
+            spend, link_clicks as clicks, impressions, purchases, revenue
+        FROM {{ source('reporting','facebook_campaign_performance') }}
+        WHERE campaign_name !~* 'sephora'
         UNION ALL
         SELECT 'Google Ads' as channel, date, date_granularity, 
             spend, clicks, impressions, purchases, revenue
