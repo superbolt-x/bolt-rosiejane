@@ -13,3 +13,9 @@ sources:
 
       - name: tiktok_ad_performance
         identifier: rosiejane_tiktok_ad_performance
+
+  - name: shopify_base
+    schema: shopify_base
+    tables:
+      - name: shopify_products
+        identifier: shopify_products
