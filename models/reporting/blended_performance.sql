@@ -23,10 +23,15 @@ WITH paid_data as
             spend, clicks, impressions, purchases, revenue
         FROM {{ source('reporting','googleads_campaign_performance') }}
         UNION ALL
-        SELECT 'TikTok' as channel, date, date_granularity, 
+        SELECT 'TikTok DTC' as channel, date, date_granularity, 
             spend, clicks, impressions, purchases, revenue
         FROM {{ source('reporting','tiktok_ad_performance') }}
         WHERE campaign_name !~* 'traffic'
+        UNION ALL
+        SELECT 'TikTok Sephora' as channel, date, date_granularity, 
+            spend, clicks, impressions, purchases, revenue
+        FROM {{ source('reporting','tiktok_ad_performance') }}
+        WHERE campaign_name ~* 'traffic'
         )
     GROUP BY 1,2,3)
   
