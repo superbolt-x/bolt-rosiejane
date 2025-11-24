@@ -19,3 +19,9 @@ sources:
     tables:
       - name: shopify_products
         identifier: shopify_products
+  
+  - name: gsheet_raw
+    schema: gsheet_raw
+    tables:
+      - name: tiktok_gmv_campaigns_insights
+        identifier: tiktok_gmv_campaigns_insights
