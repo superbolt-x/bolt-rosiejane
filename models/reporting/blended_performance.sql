@@ -32,6 +32,31 @@ WITH paid_data as
             spend, clicks, impressions, purchases, revenue
         FROM {{ source('reporting','tiktok_ad_performance') }}
         WHERE campaign_name ~* 'traffic'
+        UNION ALL
+        SELECT 'Tiktok DTC' as channel, date_trunc('day',date) as date, 'day' as date_granularity, 
+            sum(spend) as spend, sum(0) as clicks, sum(0) as impressions, sum(purchases) as purchases, sum(revenue) as revenue
+        FROM {{ source('gsheet_raw','tiktok_gmv_campaigns_insights') }}
+        GROUP BY 1,2,3
+        UNION ALL
+        SELECT 'Tiktok DTC' as channel, date_trunc('week',date) as date, 'week' as date_granularity, 
+            sum(spend) as spend, sum(0) as clicks, sum(0) as impressions, sum(purchases) as purchases, sum(revenue) as revenue
+        FROM {{ source('gsheet_raw','tiktok_gmv_campaigns_insights') }}
+        GROUP BY 1,2,3
+        UNION ALL
+        SELECT 'Tiktok DTC' as channel, date_trunc('month',date) as date, 'month' as date_granularity, 
+            sum(spend) as spend, sum(0) as clicks, sum(0) as impressions, sum(purchases) as purchases, sum(revenue) as revenue
+        FROM {{ source('gsheet_raw','tiktok_gmv_campaigns_insights') }}
+        GROUP BY 1,2,3
+        UNION ALL
+        SELECT 'Tiktok DTC' as channel, date_trunc('quarter',date) as date, 'quarter' as date_granularity, 
+            sum(spend) as spend, sum(0) as clicks, sum(0) as impressions, sum(purchases) as purchases, sum(revenue) as revenue
+        FROM {{ source('gsheet_raw','tiktok_gmv_campaigns_insights') }}
+        GROUP BY 1,2,3
+        UNION ALL
+        SELECT 'Tiktok DTC' as channel, date_trunc('year',date) as date, 'year' as date_granularity, 
+            sum(spend) as spend, sum(0) as clicks, sum(0) as impressions, sum(purchases) as purchases, sum(revenue) as revenue
+        FROM {{ source('gsheet_raw','tiktok_gmv_campaigns_insights') }}
+        GROUP BY 1,2,3
         )
     GROUP BY 1,2,3)
   
